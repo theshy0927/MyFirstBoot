@@ -1,0 +1,43 @@
+spring:
+  #redis配置
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 182.92.4.15
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 200
+        # 连接池中的最大空闲连接
+        max-idle: 20
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+    # 连接超时时间（毫秒）默认是2000ms
+    timeout: 2000ms
+    
+  #Spring boot 自带数据源 比tomcat等数据源性能高
+  datasource: 
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/springlearning?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+
+  thymeleaf:
+    encoding: utf-8
+    #thymeleaf end
+    mode: html5
+    cache: false
+    servlet:
+      content-type: text/html  
+    
+    
+mybatis:
+  type-aliases-package: org.bdqn.firstwork.model
+  mapper-locations: classpath:mapper/*.xml

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bdqn.firstwork.mapper.UserMapper">
+
+
+<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="user">
+insert user(token,gtm_created,gtm_modified,name) values(#{token},#{gtmCreated},#{gtmModified},#{name});
+</insert>
+
+<select id="getUserByToken" parameterType="String" resultType="user">
+select * from user where token = #{token}
+</select>
+
+</mapper>
