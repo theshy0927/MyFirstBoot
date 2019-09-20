@@ -64,9 +64,43 @@ href="../css/bootstrap.min.css"  />
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div id="main">
-<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="background: red;height: 300px;"></div>
-<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="background: green;height: 300px;"></div>
+
+<div class="container-fluid" id="main">
+  <div class="row">
+
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+<h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布</h3>
+<hr>
+<form>
+  <div class="form-group">
+    <label for="title">问题标题(简单扼要):</label>
+    <input  class="form-control" id="title" placeholder="问题标题" name="title">
+  </div>
+  <div class="form-group">
+    <label for="description">问题补充(必填,请按照右侧提示):</label>
+    <textarea class="form-control" rows="10" placeholder="问题补充" id="description" name="description"></textarea>
+  </div>
+  
+  <div class="form-group">
+    <label for="tag">添加标签:</label>
+    <input  class="form-control" id="tag" name="tag" placeholder="输入标签,以，号隔开">
+  </div>
+  
+  <button type="submit" class="btn btn-success submit"> 发布 </button>
+  
+</form>
 </div>
+<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+<br>
+<br><br><br>
+1.函数式编程的第二个特点就是可以返回一个函数，这样就可以实现闭包或者惰性计算：<br><br>
+
+2.以上两个特点还仅仅是简化了代码。从代码的可维护性上讲，函数式编程最大的好处是引用透明，即函数运行的结果只依赖于输入的参数，而不依赖于外部状态，因此，我们常常说函数式编程没有副作用。
+
+</div>
+</div>
+</div>
+
+
 </body>
 </html>

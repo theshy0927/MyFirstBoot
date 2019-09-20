@@ -1,9 +1,22 @@
 @charset "UTF-8";
 
+/*###################
+
+
+publish css 样式
+
+
+#########################*/
+
 body{
 	background-color:#efefef 
 }
 
 #main{
+	background-color:white;
 	margin:30px;
+}
+.submit{
+	    margin-bottom: 15px;
+	float: right;
 }

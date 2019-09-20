@@ -8,6 +8,7 @@ import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.UserService;
 import org.bdqn.firstwork.utils.ListNode;
 import org.bdqn.firstwork.utils.RedisUtils;
+import org.bdqn.firstwork.utils.Test.Test1;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -60,9 +61,11 @@ public class MyFirstBootApplicationTests {
     }
 	@Test
 	public void test2() {
-		Configuration config = RedisAutoConfig.class.getAnnotation(Configuration.class);
-		config.annotationType();
-		String value = config.value();
+//		Configuration config = RedisAutoConfig.class.getAnnotation(Configuration.class);
+//		config.annotationType();
+//		String value = config.value();
+		Test1 t = new org.bdqn.firstwork.utils.Test().new Test1();
 		
+		System.out.println(t.a);
 	}
 }

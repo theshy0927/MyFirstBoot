@@ -114,6 +114,15 @@
      <scope>test</scope>
 	</dependency>
 	
+	
+	<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <scope>provided</scope>
+	</dependency>
+	
+	
+	
 	<!-- mysql数据源 -->
 	<dependency>
     <groupId>mysql</groupId>

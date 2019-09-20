@@ -1,5 +1,9 @@
 package org.bdqn.firstwork.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -68,6 +72,9 @@ public class SpringControl {
 	@RequestMapping("/callback")
 	public String authLoginCallBack(HttpServletResponse response,@RequestParam("code") String code,@RequestParam("state") String state) {
 		String url = "redirect:/";
+//		OutputStream os = new FileOutputStream(new File(""));
+//	ObjectOutputStream oos = new ObjectOutputStream(os);
+	
 		
 		AccessTokenDTO dto = new AccessTokenDTO();
 		dto.setClient_id("9393446dc7d775d12b5c");
