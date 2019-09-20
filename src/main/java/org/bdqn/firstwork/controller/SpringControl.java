@@ -1,9 +1,7 @@
 package org.bdqn.firstwork.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -13,16 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bdqn.firstwork.dto.AccessTokenDTO;
 import org.bdqn.firstwork.dto.GithubUser;
+import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.User;
+import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
 import org.bdqn.firstwork.utils.GitHubProvider;
 import org.bdqn.firstwork.utils.RedisUtils;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
@@ -37,6 +37,9 @@ public class SpringControl {
 	
 	@Resource
 	private UserService userService;
+	
+	@Resource
+	private QuestionService questionService;
 	
 	
 	/**
@@ -56,6 +59,9 @@ public class SpringControl {
 				}
 			}
 		}
+		
+		List<QuestionDTO> questionList = questionService.questionList();
+		request.setAttribute("questionList", questionList);
 		//request.setAttribute("b", "我太难了");
 		return "index";
 		//return "redirect:/index.html";	
@@ -98,5 +104,12 @@ public class SpringControl {
 			response.addCookie(cookie);
 		}
 	return url;
+	}
+	
+	//集中处理过滤未登录
+	@GetMapping(value = "/unLogin")
+	public String unLogin(Model model) {
+		model.addAttribute("error","请登录后在进行该操作");
+		return "index";
 	}
 }

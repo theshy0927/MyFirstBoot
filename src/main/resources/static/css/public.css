@@ -11,8 +11,12 @@ index css 样式
 .img-circle{
 	    width: 24px;
 }
-
-
+.media-object{
+	width:38px;
+}
+.media-heading{
+	color: skyblue;
+}
 /*###################
 
 

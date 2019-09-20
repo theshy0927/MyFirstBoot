@@ -3,6 +3,7 @@ package org.bdqn.firstwork.model;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class Question implements Serializable{
@@ -14,11 +15,11 @@ public class Question implements Serializable{
 	private int id;
 	private String title;
 	private String description;
-	private long gmtCreate;
-	private long gmtModified;
-	private Integer viewCount;
-	private Integer commonCount;
-	private Integer likeCount;
+	private long gmtCreate = System.currentTimeMillis();
+	private long gmtModified = System.currentTimeMillis();
+	private Integer viewCount = 0;
+	private Integer commonCount = 0;
+	private Integer likeCount = 0;
 	private String tag;
 	private long creater;
 	

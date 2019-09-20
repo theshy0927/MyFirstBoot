@@ -9,7 +9,7 @@ public class User implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private long id;
 	private String token;
 	private Long gtmCreated=System.currentTimeMillis();
 	private Long gtmModified=System.currentTimeMillis();

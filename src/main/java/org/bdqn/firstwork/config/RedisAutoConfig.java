@@ -2,6 +2,11 @@ package org.bdqn.firstwork.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import javax.servlet.Filter;
+
+import org.bdqn.firstwork.utils.UserFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -14,7 +19,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-@Configuration()
+@Configuration
 public class RedisAutoConfig {
 	 
 	    @Bean
@@ -52,4 +57,12 @@ public class RedisAutoConfig {
 	    }
 	
 	
+	    @Bean
+	    public FilterRegistrationBean userFilter() {
+	    	FilterRegistrationBean registration = new FilterRegistrationBean();
+	    	registration.setFilter(new UserFilter());
+	    	registration.addUrlPatterns("/user/*");
+	    	registration.setName("UserFilter");
+	    	return registration;
+	    }
 }

@@ -64,8 +64,11 @@ public class MyFirstBootApplicationTests {
 //		Configuration config = RedisAutoConfig.class.getAnnotation(Configuration.class);
 //		config.annotationType();
 //		String value = config.value();
-		Test1 t = new org.bdqn.firstwork.utils.Test().new Test1();
-		
-		System.out.println(t.a);
+//		Test1 t = new org.bdqn.firstwork.utils.Test().new Test1();
+//		
+//		System.out.println(t.a);
+		String uri = "/admin/user/publish";
+		uri = uri.substring(uri.indexOf("/user/")+6);
+		System.out.println(uri);
 	}
 }
