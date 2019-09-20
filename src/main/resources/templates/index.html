@@ -4,10 +4,9 @@
 <title>Good Thymes Virtual Grocery</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
-href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
-<link rel="stylesheet" type="text/css" media="all"
 href="../css/bootstrap.min.css"  />
 <script type="text/javascript" src="../js/jquery-3.4.1.js"> </script>
+<link rel="stylesheet" type="text/css" href="../css/public.css">
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -51,7 +50,7 @@ href="../css/bootstrap.min.css"  />
       <ul class="nav navbar-nav navbar-right">
         <li th:if="${session.user}==null"><a  href="https://github.com/login/oauth/authorize?client_id=9393446dc7d775d12b5c&redirect_uri=http://localhost:8887/callback&state=1&scope=user">登录</a></li>
         <li class="dropdown" th:if="${session.user}!=null">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.name}">登录状态 <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img th:src="@{${session.user.avatarUrl}}"  class="img-circle" > [(${session.user.name})] <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">信息</a></li>
             <li><a href="#">帖子</a></li>

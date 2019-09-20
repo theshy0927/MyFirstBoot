@@ -6,7 +6,7 @@
 
 
 <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="user">
-insert user(token,gtm_created,gtm_modified,name) values(#{token},#{gtmCreated},#{gtmModified},#{name});
+insert user(token,gtm_created,gtm_modified,name,avatar_url) values(#{token},#{gtmCreated},#{gtmModified},#{name},#{avatarUrl});
 </insert>
 
 <select id="getUserByToken" parameterType="String" resultType="user">

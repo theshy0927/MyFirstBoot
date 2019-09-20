@@ -87,12 +87,15 @@ public class SpringControl {
 			User user = new User();
 			user.setName(gitUser.getLogin());
 			user.setToken(UUID.randomUUID().toString());
+			user.setAvatarUrl(gitUser.getAvatarUrl());
 			userService.addUser(user);
-			redis.set("uid"+gitUser.getId(), JSON.toJSONString(user));
+			redis.set("uid"+gitUser.getId(), JSON.toJSONString(user),60*60*24*7l);
 			response.addCookie(new Cookie("token",user.getToken()));
 		}else if(gitUser!=null&&redis.hasKey("uid"+gitUser.getId())) {
 			User user = JSON.toJavaObject(JSON.parseObject(redis.get("uid"+gitUser.getId()).toString()), User.class);
-			response.addCookie(new Cookie("token",user.getToken()));
+			Cookie cookie = new Cookie("token",user.getToken());
+			cookie.setMaxAge(60*60*24);
+			response.addCookie(cookie);
 		}
 	return url;
 	}

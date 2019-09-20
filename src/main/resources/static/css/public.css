@@ -3,6 +3,19 @@
 /*###################
 
 
+index css 样式
+
+
+#########################*/
+
+.img-circle{
+	    width: 24px;
+}
+
+
+/*###################
+
+
 publish css 样式
 
 
@@ -20,3 +33,6 @@ body{
 	    margin-bottom: 15px;
 	float: right;
 }
+
+
+

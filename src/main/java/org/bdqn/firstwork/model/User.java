@@ -14,5 +14,5 @@ public class User implements Serializable{
 	private Long gtmCreated=System.currentTimeMillis();
 	private Long gtmModified=System.currentTimeMillis();
 	private String name;
-
+	private String avatarUrl;
 }
