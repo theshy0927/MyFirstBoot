@@ -3,6 +3,7 @@ package org.bdqn.firstwork.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 
@@ -15,4 +16,6 @@ public interface QuestionMapper {
 	public User getUserByCreateId(long id);
 
 	public Integer getTotalCount();
+	
+	public QuestionDTO getQuestionMeg(Integer id);
 }

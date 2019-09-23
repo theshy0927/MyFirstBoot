@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+
+.float-right{
+	float: right;
+}
+.float-left{
+	float: left;
+}
+
 /*###################
 
 
@@ -39,4 +47,15 @@ body{
 }
 
 
+/*###################
+
+
+question css 样式
+
+
+#########################*/
+
+.UserAvatarSize{
+	width: 38px;
+}
 

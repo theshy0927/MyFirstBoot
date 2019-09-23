@@ -71,36 +71,19 @@ href="css/bootstrap.min.css"  />
   <div class="row">
 
 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-<h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布</h3>
-<hr>
-<div class="media" th:each="q : ${questionList.data}">
-  <div class="media-left">
-    <a href="#">
-      <img class="media-object" th:src="@{${q.user.avatarUrl}}" alt="...">
-    </a>
-  </div>
-  <div class="media-body">
-    <h5 class="media-heading"><a th:href="@{'question/'+${q.id}}" th:text="${q.title}"></a></h5>
-    <p>Elasticsearch • <span th:text="${q.user.name}"></span> 发起了问题 • <span th:text="${q.likeCount}"></span> 人关注 • <span th:text="${q.commonCount}"></span> 个回复 • <span th:text="${q.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(q.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span></p>
-  </div>
+<div class="page-header">
+  <h2>[(${question.title})]</h2>
+  <p class="text-color-999" style="color: gray;"><small> 作者 [(${question.user.name})] | 发布于 [(${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')})] | 阅读数：[(${question.viewCount})]</small></p>
+  <hr>
+  <p>[(${question.description})]</p>
+  <hr>
+  <p></p>
 </div>
-<nav aria-label="..." class="float-right paginationNav" >
-  <ul class="pagination">
-    <li th:if="${questionList.hasFirstPage}"><a href="?curPage=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-     <li th:if="${questionList.hasPreious}"><a th:href="@{/(curPage=${questionList.curPage-1})}" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
-    <li th:class="${questionList.curPage==p}?'active':''"   th:each="p : ${questionList.pages}">
-    <a th:href="@{/(curPage=${p})}" th:remove="${questionList.curPage==p}?all:none">[(${p})] </a>
-    <span th:remove="${questionList.curPage!=p}?all:none">[(${p})] </span></li>
-    
-     <li th:if="${questionList.hasNext}"><a th:href="@{/(curPage=${questionList.curPage+1})}" aria-label="Previous"><span aria-hidden="true">&rsaquo;</span></a></li>
-    <li th:if="${questionList.hasLastPage}"><a th:href="@{/(curPage=${questionList.totalPage})}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-</nav>
-<hr>
 </div>
 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
 <br>
-<h4>热门话题</h4>
+<h3><small>发起人</small></h3>
+<p><img alt="..." class="UserAvatarSize" th:src="@{${question.user.avatarUrl}}">&nbsp;&nbsp;&nbsp;<a href="#">[(${question.user.name})]</a></p>
 </div>
 </div>
 </div>

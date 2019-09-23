@@ -13,4 +13,8 @@ insert user(token,gtm_created,gtm_modified,name,avatar_url) values(#{token},#{gt
 select * from user where token = #{token}
 </select>
 
+
+
+
+
 </mapper>

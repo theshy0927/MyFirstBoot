@@ -46,4 +46,9 @@ public class QuestionServiceImpl implements QuestionService {
 		return dto;
 	}
 
+	@Override
+	public QuestionDTO getQuestionMeg(Integer id) {
+		return questionMapper.getQuestionMeg(id);
+	}
+
 }

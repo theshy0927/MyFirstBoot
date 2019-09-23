@@ -87,4 +87,10 @@ public class MyFirstBootApplicationTests {
 		PaginationDTO<QuestionDTO> questionList = questionService.questionList(3, 2);
 		System.out.println(questionList);
 	}
+	
+	@Test
+	public void getQuestionMeg() {
+		QuestionDTO dto = questionService.getQuestionMeg(1);
+		System.out.println(dto);
+	}
 }
