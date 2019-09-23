@@ -73,7 +73,7 @@ href="css/bootstrap.min.css"  />
 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
 <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布</h3>
 <hr>
-<div class="media" th:each="q : ${questionList}">
+<div class="media" th:each="q : ${questionList.data}">
   <div class="media-left">
     <a href="#">
       <img class="media-object" th:src="@{${q.user.avatarUrl}}" alt="...">
@@ -84,6 +84,18 @@ href="css/bootstrap.min.css"  />
     <p>Elasticsearch • <span th:text="${q.user.name}"></span> 发起了问题 • <span th:text="${q.likeCount}"></span> 人关注 • <span th:text="${q.commonCount}"></span> 个回复 • <span th:text="${q.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(q.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span></p>
   </div>
 </div>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li ><a href="?curPage=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+     <li ><a th:href="@{/(curPage=${questionList.curPage-1})}" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+    <li th:class="${questionList.curPage==p}?'active':''"   th:each="p : ${questionList.pages}">
+    <a th:href="@{/(curPage=${p})}" th:remove="${questionList.curPage==p}?all:none">[(${p})] </a>
+    <span th:remove="${questionList.curPage!=p}?all:none">[(${p})] </span></li>
+    
+     <li ><a th:href="@{/(curPage=${questionList.curPage+1})}" aria-label="Previous"><span aria-hidden="true">&rsaquo;</span></a></li>
+    <li ><a th:href="@{/(curPage=${questionList.totalPage})}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+</nav>
 <hr>
 </div>
 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

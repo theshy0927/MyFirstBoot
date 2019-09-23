@@ -2,6 +2,7 @@ package org.bdqn.firstwork.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 
@@ -9,7 +10,9 @@ public interface QuestionMapper {
 
 	public void addQuestion(Question question);
 	
-	public List<Question> questionList();
+	public List<Question> questionList(@Param("offset")Integer offset,@Param("size") Integer size);
 	
 	public User getUserByCreateId(long id);
+
+	public Integer getTotalCount();
 }

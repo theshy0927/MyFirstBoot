@@ -3,6 +3,7 @@ package org.bdqn.firstwork.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.mapper.QuestionMapper;
 import org.bdqn.firstwork.model.Question;
@@ -23,8 +24,13 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public List<QuestionDTO> questionList() {
-		 List<Question> questionList = questionMapper.questionList();
+	public PaginationDTO<QuestionDTO> questionList(Integer curPage,Integer size) {
+		
+		PaginationDTO<QuestionDTO> dto = new PaginationDTO<QuestionDTO>();
+		Integer totalCount = questionMapper.getTotalCount();
+		dto.oprData(curPage, size, totalCount);
+		Integer offset = (dto.getCurPage()-1)*size;
+		 List<Question> questionList = questionMapper.questionList(offset,size);
 		 List<QuestionDTO> questionDTOs =null;
 		 if(questionList!=null) {
 			 questionDTOs  =new ArrayList<QuestionDTO>();
@@ -35,8 +41,9 @@ public class QuestionServiceImpl implements QuestionService {
 				 qdto.setUser(user);
 				 questionDTOs.add(qdto);
 			}
+			 dto.setData(questionDTOs);
 		 }
-		return questionDTOs;
+		return dto;
 	}
 
 }

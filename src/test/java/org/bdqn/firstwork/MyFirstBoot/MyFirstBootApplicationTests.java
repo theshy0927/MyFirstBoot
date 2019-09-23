@@ -1,18 +1,20 @@
 package org.bdqn.firstwork.MyFirstBoot;
 
+
 import javax.annotation.Resource;
 
-import org.bdqn.firstwork.config.RedisAutoConfig;
 import org.bdqn.firstwork.dto.GithubUser;
+import org.bdqn.firstwork.dto.PaginationDTO;
+import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.User;
+import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
 import org.bdqn.firstwork.utils.ListNode;
 import org.bdqn.firstwork.utils.RedisUtils;
-import org.bdqn.firstwork.utils.Test.Test1;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +23,8 @@ public class MyFirstBootApplicationTests {
 	
 	@Resource(name = "redisUtils")
 	private RedisUtils redis;
+	@Autowired
+	private QuestionService questionService;
 	
 	@Test
 	public void contextLoads() {
@@ -67,8 +71,20 @@ public class MyFirstBootApplicationTests {
 //		Test1 t = new org.bdqn.firstwork.utils.Test().new Test1();
 //		
 //		System.out.println(t.a);
-		String uri = "/admin/user/publish";
-		uri = uri.substring(uri.indexOf("/user/")+6);
-		System.out.println(uri);
+//		String uri = "/admin/user/publish";
+//		uri = uri.substring(uri.indexOf("/user/")+6);
+//		System.out.println(uri);
+		PaginationDTO<QuestionDTO> pageDto = new PaginationDTO<QuestionDTO>();
+		Integer curPage = 6;
+		Integer totalCount = 12;
+		Integer size = 2;
+		pageDto.oprData(curPage, size, totalCount);
+		System.out.println(pageDto);
+	}
+	
+	@Test
+	public void questionPagination() {
+		PaginationDTO<QuestionDTO> questionList = questionService.questionList(3, 2);
+		System.out.println(questionList);
 	}
 }

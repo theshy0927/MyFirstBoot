@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bdqn.firstwork.dto.AccessTokenDTO;
 import org.bdqn.firstwork.dto.GithubUser;
+import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
@@ -48,7 +49,9 @@ public class SpringControl {
 	 * @return
 	 */
 	@RequestMapping("/")
-	public String Welcome(HttpServletRequest request) {
+	public String Welcome(HttpServletRequest request,
+			@RequestParam(defaultValue = "1",required = false) Integer curPage,
+			@RequestParam(defaultValue = "2",required = false) Integer size) {
 		Cookie [] cookies = request.getCookies();
 		if(cookies!=null) {
 			for (Cookie cookie : cookies) {
@@ -59,8 +62,7 @@ public class SpringControl {
 				}
 			}
 		}
-		
-		List<QuestionDTO> questionList = questionService.questionList();
+		PaginationDTO<QuestionDTO> questionList = questionService.questionList(curPage ,size);
 		request.setAttribute("questionList", questionList);
 		//request.setAttribute("b", "我太难了");
 		return "index";
@@ -89,6 +91,7 @@ public class SpringControl {
 		dto.setRedirect_uri("http://localhost:8887/callback");
 		dto.setClient_secret("46b4110c09c0d80365c476096906e8189089a73e");
 	GithubUser gitUser =	gitHubProvider.createUserByAccessToken(gitHubProvider.getAccessToken(dto));
+		System.out.println(gitUser.getId());
 		if(gitUser!=null&& !redis.hasKey("uid"+gitUser.getId())) {
 			User user = new User();
 			user.setName(gitUser.getLogin());

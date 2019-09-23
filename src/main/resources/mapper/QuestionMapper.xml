@@ -6,6 +6,8 @@
 
 <select id="questionList"   resultType="question">
 	select id,title,description,gmt_create,gmt_modified,view_count,common_count,like_count,tag,creater from question
+	limit #{offset},#{size}
+
 </select>
 
 <insert id="addQuestion" keyProperty="id" useGeneratedKeys="true">
@@ -16,4 +18,8 @@ insert question(title,description,gmt_create,gmt_modified,tag,creater) values(#{
 select * from user where id = #{id}
 </select>
 
+
+<select id="getTotalCount" resultType="int">
+select count(1) from question 
+</select>
 </mapper>
