@@ -5,11 +5,11 @@
 <base th:href="@{/}" >
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
-href="css/bootstrap.min.css"  />
-<script type="text/javascript" src="js/jquery-3.4.1.js"> </script>
-<link rel="stylesheet" type="text/css" href="css/public.css">
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/public.js"></script>
+href="/css/bootstrap.min.css"  />
+<script type="text/javascript" src="/js/jquery-3.4.1.js"> </script>
+<link rel="stylesheet" type="text/css" href="/css/public.css">
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/public.js"></script>
 </head>
 <body>
 <span hidden="hidden" th:text="${error}" id="error"></span>
@@ -20,7 +20,6 @@ href="css/bootstrap.min.css"  />
   <div class="row">
 
 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-<h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布</h3>
 <hr>
 <div class="media" th:each="q : ${questionList.data}">
   <div class="media-left">

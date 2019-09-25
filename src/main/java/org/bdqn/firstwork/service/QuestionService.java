@@ -10,7 +10,7 @@ public interface QuestionService {
 
 	public void addQuestion(Question question) ;
 	
-	public PaginationDTO<QuestionDTO> questionList(Integer curPage,Integer size);
+	public PaginationDTO<QuestionDTO> questionList(Integer curPage,Integer size,Integer userId);
 	
 	public QuestionDTO getQuestionMeg(Integer id);
 

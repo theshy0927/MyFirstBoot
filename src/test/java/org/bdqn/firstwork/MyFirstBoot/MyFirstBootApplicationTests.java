@@ -84,7 +84,7 @@ public class MyFirstBootApplicationTests {
 	
 	@Test
 	public void questionPagination() {
-		PaginationDTO<QuestionDTO> questionList = questionService.questionList(3, 2);
+		PaginationDTO<QuestionDTO> questionList = questionService.questionList(3, 2,null);
 		System.out.println(questionList);
 	}
 	
@@ -92,5 +92,11 @@ public class MyFirstBootApplicationTests {
 	public void getQuestionMeg() {
 		QuestionDTO dto = questionService.getQuestionMeg(1);
 		System.out.println(dto);
+	}
+	
+	@Test
+	public void getProfileQuestions() {
+		PaginationDTO<QuestionDTO> questionList = questionService.questionList(1, 2,6);
+		System.out.println(questionList);
 	}
 }

@@ -51,7 +51,6 @@ public class QuestionControl {
 	
 	@RequestMapping("/question/{id}")
 	public String question(Model model,@PathVariable(value = "id") Integer id){
-		
 		QuestionDTO dto = questionService.getQuestionMeg(id);
 		model.addAttribute("question", dto);
 		return "question";

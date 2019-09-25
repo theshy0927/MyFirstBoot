@@ -24,13 +24,13 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public PaginationDTO<QuestionDTO> questionList(Integer curPage,Integer size) {
+	public PaginationDTO<QuestionDTO> questionList(Integer curPage,Integer size,Integer userId) {
 		
 		PaginationDTO<QuestionDTO> dto = new PaginationDTO<QuestionDTO>();
-		Integer totalCount = questionMapper.getTotalCount();
+		Integer totalCount = questionMapper.getTotalCount(userId);
 		dto.oprData(curPage, size, totalCount);
 		Integer offset = (dto.getCurPage()-1)*size;
-		 List<Question> questionList = questionMapper.questionList(offset,size);
+		 List<Question> questionList = questionMapper.questionList(offset,size,userId);
 		 List<QuestionDTO> questionDTOs =null;
 		 if(questionList!=null) {
 			 questionDTOs  =new ArrayList<QuestionDTO>();
@@ -48,7 +48,9 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public QuestionDTO getQuestionMeg(Integer id) {
-		return questionMapper.getQuestionMeg(id);
+		QuestionDTO q = questionMapper.getQuestionMeg(id);
+		 q.setDescription(q.getDescription().replaceAll(" ","&nbsp;").replaceAll("\r","<br/>"));
+		return q;
 	}
 
 }

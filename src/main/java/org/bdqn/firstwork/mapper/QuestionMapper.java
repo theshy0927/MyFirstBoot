@@ -11,11 +11,11 @@ public interface QuestionMapper {
 
 	public void addQuestion(Question question);
 	
-	public List<Question> questionList(@Param("offset")Integer offset,@Param("size") Integer size);
+	public List<Question> questionList(@Param("offset")Integer offset,@Param("size") Integer size,@Param("creater") Integer userId);
 	
 	public User getUserByCreateId(long id);
 
-	public Integer getTotalCount();
+	public Integer getTotalCount(@Param("creater")Integer userId);
 	
 	public QuestionDTO getQuestionMeg(Integer id);
 }

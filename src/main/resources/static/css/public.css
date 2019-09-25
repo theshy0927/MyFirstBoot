@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+.text_center{
+	text-align: center;	
+}
+p{
+    word-wrap:break-word
+   /*  word-break: break-all; 或者是下面一种方法让单词强制换行*/
+
+   
+    
+}
 
 .float-right{
 	float: right;

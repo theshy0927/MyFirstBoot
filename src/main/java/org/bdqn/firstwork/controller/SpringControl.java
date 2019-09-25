@@ -1,6 +1,8 @@
 package org.bdqn.firstwork.controller;
 
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,7 +64,8 @@ public class SpringControl {
 				}
 			}
 		}
-		PaginationDTO<QuestionDTO> questionList = questionService.questionList(curPage ,size);
+		PaginationDTO<QuestionDTO> questionList = questionService.questionList(curPage ,size,null);
+		questionList.setUrl("/");
 		request.setAttribute("questionList", questionList);
 		//request.setAttribute("b", "我太难了");
 		return "index";
@@ -80,10 +83,6 @@ public class SpringControl {
 	@RequestMapping("/callback")
 	public String authLoginCallBack(HttpServletResponse response,@RequestParam("code") String code,@RequestParam("state") String state) {
 		String url = "redirect:/";
-//		OutputStream os = new FileOutputStream(new File(""));
-//	ObjectOutputStream oos = new ObjectOutputStream(os);
-	
-		
 		AccessTokenDTO dto = new AccessTokenDTO();
 		dto.setClient_id("9393446dc7d775d12b5c");
 		dto.setCode(code);
@@ -98,7 +97,7 @@ public class SpringControl {
 			user.setToken(UUID.randomUUID().toString());
 			user.setAvatarUrl(gitUser.getAvatarUrl());
 			userService.addUser(user);
-			redis.set("uid"+gitUser.getId(), JSON.toJSONString(user),60*60*24*7l);
+			redis.set("uid"+gitUser.getId(), JSON.toJSONString(user),60*60*24*7);
 			response.addCookie(new Cookie("token",user.getToken()));
 		}else if(gitUser!=null&&redis.hasKey("uid"+gitUser.getId())) {
 			User user = JSON.toJavaObject(JSON.parseObject(redis.get("uid"+gitUser.getId()).toString()), User.class);
@@ -113,6 +112,27 @@ public class SpringControl {
 	@GetMapping(value = "/unLogin")
 	public String unLogin(Model model) {
 		model.addAttribute("error","请登录后在进行该操作");
-		return "index";
+		
+		
+		return "forward:/";
+	}
+	
+	
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request,HttpServletResponse response) throws InterruptedException {
+		request.getSession().removeAttribute("user");
+		Cookie [] cookies = request.getCookies();
+		if(cookies!=null) {
+			for (Cookie cookie : cookies) {
+				if(cookie.getName().equals("token")) {
+					Cookie cookie2 = new Cookie("token", "");
+					cookie2.setMaxAge(0);
+					response.addCookie(cookie2);
+					break;
+				}
+			}
+		}
+		request.setAttribute("callBack", "退出成功");
+		return "forward:/";
 	}
 }
