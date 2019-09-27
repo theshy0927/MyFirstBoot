@@ -54,16 +54,7 @@ public class SpringControl {
 	public String Welcome(HttpServletRequest request,
 			@RequestParam(defaultValue = "1",required = false) Integer curPage,
 			@RequestParam(defaultValue = "2",required = false) Integer size) {
-		Cookie [] cookies = request.getCookies();
-		if(cookies!=null) {
-			for (Cookie cookie : cookies) {
-				if(cookie.getName().equals("token")) {
-					User user = userService.getUserByToken(cookie.getValue());
-					request.getSession().setAttribute("user", user);
-					break;
-				}
-			}
-		}
+		
 		PaginationDTO<QuestionDTO> questionList = questionService.questionList(curPage ,size,null);
 		questionList.setUrl("/");
 		request.setAttribute("questionList", questionList);
@@ -82,7 +73,7 @@ public class SpringControl {
 	 */
 	@RequestMapping("/callback")
 	public String authLoginCallBack(HttpServletResponse response,@RequestParam("code") String code,@RequestParam("state") String state) {
-		String url = "redirect:/";
+		String url = "redirect:/user/";
 		AccessTokenDTO dto = new AccessTokenDTO();
 		dto.setClient_id("9393446dc7d775d12b5c");
 		dto.setCode(code);

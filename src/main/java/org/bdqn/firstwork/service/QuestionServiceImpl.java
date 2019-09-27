@@ -11,6 +11,7 @@ import org.bdqn.firstwork.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service(value="questionService")
 public class QuestionServiceImpl implements QuestionService {
@@ -47,9 +48,13 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public QuestionDTO getQuestionMeg(Integer id) {
+	@Transactional
+	public QuestionDTO getQuestionMeg(Integer id,boolean commited) {
+		if(!commited) {
+			questionMapper.addViewCount(id);
+		}
 		QuestionDTO q = questionMapper.getQuestionMeg(id);
-		 q.setDescription(q.getDescription().replaceAll(" ","&nbsp;").replaceAll("\r","<br/>"));
+		q.setDescription(q.getDescription().replaceAll(" ","&nbsp;").replaceAll("\r","<br/>"));
 		return q;
 	}
 

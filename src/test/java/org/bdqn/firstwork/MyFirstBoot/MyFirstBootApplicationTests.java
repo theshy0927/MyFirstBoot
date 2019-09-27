@@ -11,10 +11,12 @@ import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
 import org.bdqn.firstwork.utils.ListNode;
 import org.bdqn.firstwork.utils.RedisUtils;
+import org.bdqn.firstwork.utils.TokenIntercept;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -90,13 +92,20 @@ public class MyFirstBootApplicationTests {
 	
 	@Test
 	public void getQuestionMeg() {
-		QuestionDTO dto = questionService.getQuestionMeg(1);
+		QuestionDTO dto = questionService.getQuestionMeg(1,false);
 		System.out.println(dto);
 	}
-	
+	@Resource
+	ApplicationContext application;
 	@Test
 	public void getProfileQuestions() {
 		PaginationDTO<QuestionDTO> questionList = questionService.questionList(1, 2,6);
 		System.out.println(questionList);
+	}
+	
+	@Test
+	public void a() {
+		TokenIntercept bean = (TokenIntercept)application.getBean("tokenIntercept");
+		 //System.out.println(bean.getUserService());
 	}
 }

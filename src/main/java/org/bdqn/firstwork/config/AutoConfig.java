@@ -62,7 +62,7 @@ public class AutoConfig {
 	    public FilterRegistrationBean userFilter() {
 	    	FilterRegistrationBean registration = new FilterRegistrationBean();
 	    	registration.setFilter(new UserFilter());
-	    	registration.addUrlPatterns("/user/*");
+	    	registration.addUrlPatterns("/question/*");
 	    	registration.setName("UserFilter");
 	    	return registration;
 	    }

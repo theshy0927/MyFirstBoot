@@ -18,4 +18,6 @@ public interface QuestionMapper {
 	public Integer getTotalCount(@Param("creater")Integer userId);
 	
 	public QuestionDTO getQuestionMeg(Integer id);
+	
+	public int addViewCount(@Param("id")Integer id);
 }

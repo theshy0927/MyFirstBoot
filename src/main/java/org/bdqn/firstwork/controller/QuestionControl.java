@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class QuestionControl {
 	
-	
 	@Autowired
 	private QuestionService questionService;
 	
@@ -50,8 +49,8 @@ public class QuestionControl {
 	
 	
 	@RequestMapping("/question/{id}")
-	public String question(Model model,@PathVariable(value = "id") Integer id){
-		QuestionDTO dto = questionService.getQuestionMeg(id);
+	public String question(HttpServletRequest request,Model model,@PathVariable(value = "id") Integer id,@RequestParam(value = "commited" , required = false ,defaultValue = "false") boolean commited){
+		QuestionDTO dto = questionService.getQuestionMeg(id,commited);
 		model.addAttribute("question", dto);
 		return "question";
 	}
