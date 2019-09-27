@@ -3,7 +3,6 @@ package org.bdqn.firstwork.model;
 import java.io.Serializable;
 
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class Question implements Serializable{

@@ -1,9 +1,6 @@
 package org.bdqn.firstwork.controller;
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -23,7 +20,6 @@ import org.bdqn.firstwork.utils.RedisUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -81,7 +77,6 @@ public class SpringControl {
 		dto.setRedirect_uri("http://localhost:8887/callback");
 		dto.setClient_secret("46b4110c09c0d80365c476096906e8189089a73e");
 	GithubUser gitUser =	gitHubProvider.createUserByAccessToken(gitHubProvider.getAccessToken(dto));
-		System.out.println(gitUser.getId());
 		if(gitUser!=null&& !redis.hasKey("uid"+gitUser.getId())) {
 			User user = new User();
 			user.setName(gitUser.getLogin());

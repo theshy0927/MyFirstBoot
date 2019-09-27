@@ -21,15 +21,20 @@ public class QuestionControl {
 	private QuestionService questionService;
 	
 	@PostMapping("addQuestion")
-	public String addQuestion(Question question,HttpServletRequest request,Model model) {
-		String returnUrl = "publish";
+	public String addorUpdateQuestion(Question question,HttpServletRequest request,Model model) {
+		
+		String returnUrl = question.getId()==0? "publish" :"forward:/goPublish?id="+question.getId();
+		model.addAttribute("id", question.getId());
 		model.addAttribute("description", question.getDescription());
+		model.addAttribute("tag", question.getTag());
 		if(question.getTitle()==null || question.getTitle().trim().equals("")) {
 			model.addAttribute("error", "标题不能为空");
 		}else if(question.getDescription()==null  || question.getDescription().trim().equals("")) {
 			model.addAttribute("title", question.getTitle());
 			model.addAttribute("error", "描述不能为空");
 		}else {
+			//判断是更新还是新增
+			if(question.getId()==0) {
 			User user = (User) request.getSession().getAttribute("user");
 			question.setCreater(user.getId());
 			questionService.addQuestion(question);
@@ -38,21 +43,36 @@ public class QuestionControl {
 			}else {
 				returnUrl = "redirect:/";
 			}
+			}else {
+				questionService.updateQuestion(question);
+				returnUrl = "redirect:/profile/questions/"+question.getCreater();
+			}
 		}
 		return returnUrl;
 	}
 	
 	@RequestMapping("/goPublish")
-	public String goPublish() {
+	public String goPublish(HttpServletRequest request,@RequestParam(value = "id" , required = false , defaultValue = "0") Integer id , Model model) {
+		
+		if(id!=0 && request.getAttribute("error")==null) {
+			QuestionDTO dto = questionService.getQuestionMeg(id,true);
+			model.addAttribute("id", dto.getId());
+			model.addAttribute("description", dto.getDescription());
+			model.addAttribute("tag", dto.getTag());
+			model.addAttribute("title", dto.getTitle());
+		}
 		return "publish";
 	}
 	
 	
 	@RequestMapping("/question/{id}")
-	public String question(HttpServletRequest request,Model model,@PathVariable(value = "id") Integer id,@RequestParam(value = "commited" , required = false ,defaultValue = "false") boolean commited){
+	public String question(HttpServletRequest request,Model model,@PathVariable(value = "id") Integer id,
+			@RequestParam(value = "commited" , required = false ,defaultValue = "false") boolean commited){
 		QuestionDTO dto = questionService.getQuestionMeg(id,commited);
 		model.addAttribute("question", dto);
 		return "question";
 	}
+	
+	
 	
 }

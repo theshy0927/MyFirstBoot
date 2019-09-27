@@ -57,6 +57,11 @@ select token,gtm_created,gtm_modified,name,avatar_url from user where id = #{cre
 update question set  view_count=view_count+1   where id = #{id}
 </update>
 
+
+<update id="updateQuestion" parameterType="question">
+update question set description = #{description} , title = #{title} , tag = #{tag} ,gmt_modified=#{gmtModified} where id = #{id}
+</update>
+
 <!-- 一对多映射  user-》question -->
 
 

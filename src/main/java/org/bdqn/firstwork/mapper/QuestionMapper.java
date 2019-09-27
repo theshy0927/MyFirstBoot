@@ -20,4 +20,6 @@ public interface QuestionMapper {
 	public QuestionDTO getQuestionMeg(Integer id);
 	
 	public int addViewCount(@Param("id")Integer id);
+	
+	public void updateQuestion(Question question);
 }

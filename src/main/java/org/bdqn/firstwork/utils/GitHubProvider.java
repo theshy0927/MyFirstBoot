@@ -1,7 +1,6 @@
 package org.bdqn.firstwork.utils;
 
 import java.io.IOException;
-import java.util.UUID;
 
 import org.bdqn.firstwork.dto.AccessTokenDTO;
 import org.bdqn.firstwork.dto.GithubUser;

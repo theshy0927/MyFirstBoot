@@ -28,7 +28,7 @@ href="/css/bootstrap.min.css"  />
     </a>
   </div>
   <div class="media-body">
-    <h5 class="media-heading"><a th:href="@{'question/'+${q.id}}" th:text="${q.title}"></a></h5>
+    <h5 class="media-heading"><a th:href="@{'question/'+${q.id}}" th:text="${q.title}"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/goPublish(id=${q.id})}">编辑    <span class="glyphicon glyphicon-edit"></span></a></h5>
     <p>Elasticsearch • <span th:text="${q.user.name}"></span> 发起了问题 • <span th:text="${q.likeCount}"></span> 人关注 • <span th:text="${q.commonCount}"></span> 个回复 • <span th:text="${q.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(q.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span></p>
   </div>
 </div>

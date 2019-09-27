@@ -58,4 +58,12 @@ public class QuestionServiceImpl implements QuestionService {
 		return q;
 	}
 
+	@Transactional
+	@Override
+	public void updateQuestion(Question question) {
+		questionMapper.updateQuestion(question);
+	}
+	
+	
+
 }

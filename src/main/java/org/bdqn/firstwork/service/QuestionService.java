@@ -13,5 +13,7 @@ public interface QuestionService {
 	public PaginationDTO<QuestionDTO> questionList(Integer curPage,Integer size,Integer userId);
 	
 	public QuestionDTO getQuestionMeg(Integer id, boolean commited);
+	
+	public void updateQuestion(Question question);
 
 }
