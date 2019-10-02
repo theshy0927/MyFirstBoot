@@ -108,4 +108,13 @@ public class MyFirstBootApplicationTests {
 		TokenIntercept bean = (TokenIntercept)application.getBean("tokenIntercept");
 		 //System.out.println(bean.getUserService());
 	}
+	
+	@Test
+	public void b() {
+		String []s =  application.getBeanDefinitionNames();
+		for (String ss : s) {
+			System.out.println(ss);
+			
+		}
+	}
 }

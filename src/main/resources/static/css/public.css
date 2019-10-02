@@ -11,6 +11,10 @@ p{
     
 }
 
+.jumbotron{
+	margin: 50px;
+}
+
 .float-right{
 	float: right;
 }

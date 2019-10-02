@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Good Thymes Virtual Grocery</title>
+<base th:href="@{/}" >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+href="css/bootstrap.min.css"  />
+<script type="text/javascript" src="js/jquery-3.4.1.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/public.css">
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<span hidden="hidden" th:text="${error}" id="error"></span>
+
+<div th:insert="header :: nav"></div>
+
+
+
+<div class="jumbotron">
+  <h1>[(${message})]</h1>
+  <p><a class="btn btn-primary btn-lg" href="/" role="button">回到首頁</a></p>
+</div>
+<br>
+</body>
+</html>

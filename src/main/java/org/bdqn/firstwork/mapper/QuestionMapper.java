@@ -21,5 +21,5 @@ public interface QuestionMapper {
 	
 	public int addViewCount(@Param("id")Integer id);
 	
-	public void updateQuestion(Question question);
+	public int updateQuestion(Question question);
 }
