@@ -21,7 +21,7 @@ public class AutoException implements ErrorController{
 
 	@Override
 	public String getErrorPath() {
-		return null;
+		return "error";
 	}
 	
 	@RequestMapping(produces = MediaType.TEXT_HTML_VALUE)

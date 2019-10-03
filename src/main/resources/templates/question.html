@@ -2,43 +2,93 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Good Thymes Virtual Grocery</title>
-<base th:href="@{/}" >
+<base th:href="@{/}">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
-href="css/bootstrap.min.css"  />
-<script type="text/javascript" src="js/jquery-3.4.1.js"> </script>
+	href="css/bootstrap.min.css" />
+<script type="text/javascript" src="js/jquery-3.4.1.js">
+	
+</script>
 <link rel="stylesheet" type="text/css" href="css/public.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/public.js"></script>
+<script type="text/javascript" src="js/question.js"></script>
 </head>
 <body>
-<span hidden="hidden" th:text="${error}" id="error"></span>
 
-<div th:insert="header :: nav"></div>
+	<div th:insert="header :: nav"></div>
 
-<div class="container-fluid" id="main">
-  <div class="row">
+	<div class="container-fluid" id="main">
+		<div class="row">
 
-<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-<div class="page-header">
-  <h2>[(${question.title})]</h2>
-  <p class="text-color-999" style="color: gray;"><small> 作者 [(${question.user.name})] | 发布于 [(${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')})] | 阅读数：[(${question.viewCount})]</small></p>
-  <hr>
-  <p>[(${question.description})]</p>
-  <hr>
-  
-  <p th:if="${session.user==null}" class="text_center">
-      要回复问题请先<a href="https://github.com/login/oauth/authorize?client_id=9393446dc7d775d12b5c&redirect_uri=http://localhost:8887/callback&state=1&scope=user">登录</a>
-  </p>
-  
-</div>
-</div>
-<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-<br>
-<h3><small>发起人</small></h3>
-<p><img alt="..." class="UserAvatarSize" th:src="@{${question.user.avatarUrl}}">&nbsp;&nbsp;&nbsp;<a href="#">[(${question.user.name})]</a></p>
-</div>
-</div>
-</div>
+			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+				<div class="page-header">
+					<h2>[(${question.title})]</h2>
+					<p class="text-color-999" style="color: gray;">
+						<small> 作者 [(${question.user.name})] | 发布于
+							[(${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')})] |
+							阅读数：[(${question.viewCount})]</small>
+					</p>
+					<hr>
+					<p>[(${question.description})]</p>
+					
+
+					<p th:if="${session.user==null}" class="text_center">
+						要回复问题请先<a
+							href="https://github.com/login/oauth/authorize?client_id=9393446dc7d775d12b5c&redirect_uri=http://localhost:8887/callback&state=1&scope=user">登录</a>
+					</p>
+
+				</div>
+				<div>
+				<h4><span th:text="${question.commonCount}"></span>个回复</h4>
+				
+				<div class="media" th:each="c : ${commentDTO}">
+						<div class="media-left">
+							<a href="#"> <img class="media-object"
+								th:src="@{${q.user.avatarUrl}}" alt="...">
+							</a>
+						</div>
+						<div class="media-body">
+							<h5 class="media-heading">
+								<a th:href="/" th:text=""></a>
+							</h5>
+							<p>
+							这是一条回复
+							</p>
+						</div>
+					</div>
+				
+				
+				</div>
+				<hr>
+				<div>
+				
+				
+				
+				<div th:if="${session.user!=null}">
+				<img alt="..." class="UserAvatarSize"
+						th:src="@{${question.user.avatarUrl}}">&nbsp;&nbsp;&nbsp;<a
+						href="#">[(${question.user.name})]</a>
+				</div>
+				<input name="parentId" th:value="${question.id}" id="parentId" hidden="hidden"/>
+				<input name="type" th:value="2" id="type" hidden="hidden">
+				<textarea class="form-control margin_top_bottom" rows="6" name="content" id="content"></textarea>
+				<p><button type="button" class="btn btn-success pull-right margin_top_bottom">发送评论</button></p>
+				</div>
+				
+				
+			</div>
+			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+				<br>
+				<h3>
+					<small>发起人</small>
+				</h3>
+				<p>
+					<img alt="..." class="UserAvatarSize"
+						th:src="@{${question.user.avatarUrl}}">&nbsp;&nbsp;&nbsp;<a
+						href="#">[(${question.user.name})]</a>
+				</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

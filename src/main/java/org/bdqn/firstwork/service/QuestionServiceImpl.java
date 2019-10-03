@@ -57,7 +57,7 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 		QuestionDTO q = questionMapper.getQuestionMeg(id);
 		if(q==null) {
-			throw new CustomizeException(ControllerError.not_find.getMessage());
+			throw new CustomizeException(ControllerError.not_find);
 		}
 		q.setDescription(q.getDescription().replaceAll(" ","&nbsp;").replaceAll("\r","<br/>"));
 		return q;
@@ -68,7 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
 	public void updateQuestion(Question question) {
 		int result = questionMapper.updateQuestion(question);
 		if(result==0) {
-			throw new CustomizeException(ControllerError.not_find.getMessage());
+			throw new CustomizeException(ControllerError.not_find);
 		}
 	}
 	
