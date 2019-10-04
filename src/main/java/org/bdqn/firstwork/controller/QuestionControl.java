@@ -1,11 +1,14 @@
 package org.bdqn.firstwork.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
+import org.bdqn.firstwork.utils.CommentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +25,6 @@ public class QuestionControl {
 	
 	@PostMapping("addQuestion")
 	public String addorUpdateQuestion(Question question,HttpServletRequest request,Model model) {
-		
 		String returnUrl = question.getId()==0? "publish" :"forward:/goPublish?id="+question.getId();
 		model.addAttribute("id", question.getId());
 		model.addAttribute("description", question.getDescription());
@@ -70,8 +72,11 @@ public class QuestionControl {
 			@RequestParam(value = "commited" , required = false ,defaultValue = "false") boolean commited){
 		QuestionDTO dto = questionService.getQuestionMeg(id,commited);
 		model.addAttribute("question", dto);
+		model.addAttribute("commentDTO",dto.getCommonCount()>0?questionService.getCommonDTO(dto.getId(),CommentType.Question):new ArrayList<>());
 		return "question";
 	}
+	
+	
 	
 	
 	

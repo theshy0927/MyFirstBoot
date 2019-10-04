@@ -14,7 +14,11 @@ select * from user where token = #{token}
 </select>
 
 
-
-
+<select id="getUserByCreatorId" parameterType="long" resultType="user">
+select * from user 
+<foreach collection="list" open="where id in(" separator="," item="i" close=")">
+	#{i}
+</foreach>
+</select>
 
 </mapper>

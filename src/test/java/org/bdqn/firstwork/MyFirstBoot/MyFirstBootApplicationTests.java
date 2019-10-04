@@ -1,14 +1,18 @@
 package org.bdqn.firstwork.MyFirstBoot;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.bdqn.firstwork.dto.CommentDTO;
 import org.bdqn.firstwork.dto.GithubUser;
 import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
+import org.bdqn.firstwork.utils.CommentType;
 import org.bdqn.firstwork.utils.ListNode;
 import org.bdqn.firstwork.utils.RedisUtils;
 import org.bdqn.firstwork.utils.TokenIntercept;
@@ -116,5 +120,11 @@ public class MyFirstBootApplicationTests {
 			System.out.println(ss);
 			
 		}
+	}
+	
+	@Test
+	public void c() {
+		List<CommentDTO> commonDTO = questionService.getCommonDTO(1, CommentType.Question);
+		commonDTO.forEach(System.out::println);
 	}
 }

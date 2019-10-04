@@ -12,4 +12,9 @@ insert `comment`(content,like_count,gmt_created,gmt_modified,type,creatorId,pare
 update question set  common_count=common_count+#{count}   where id = #{parentId}
 </update>
 
+
+
+<select id="getCommentList"  resultType="comment">
+select * from comment where parentId = #{questionId} and type = #{type}
+</select>
 </mapper>

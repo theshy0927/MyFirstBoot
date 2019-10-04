@@ -54,6 +54,18 @@ public class SpringControl {
 		PaginationDTO<QuestionDTO> questionList = questionService.questionList(curPage ,size,null);
 		questionList.setUrl("/");
 		request.setAttribute("questionList", questionList);
+		if(request.getSession().getAttribute("user")==null) {
+			Cookie [] cookies = request.getCookies();
+			if(cookies!=null) {
+				for (Cookie cookie : cookies) {
+					if(cookie.getName().equals("token")) {
+						User user = userService.getUserByToken(cookie.getValue());
+						request.getSession().setAttribute("user", user);
+						break;
+					}
+				}
+			}
+		}
 		//request.setAttribute("b", "我太难了");
 		return "index";
 		//return "redirect:/index.html";	

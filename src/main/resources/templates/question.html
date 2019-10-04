@@ -32,28 +32,34 @@
 					<p>[(${question.description})]</p>
 					
 
-					<p th:if="${session.user==null}" class="text_center">
-						要回复问题请先<a
-							href="https://github.com/login/oauth/authorize?client_id=9393446dc7d775d12b5c&redirect_uri=http://localhost:8887/callback&state=1&scope=user">登录</a>
-					</p>
+					
 
 				</div>
 				<div>
 				<h4><span th:text="${question.commonCount}"></span>个回复</h4>
 				
-				<div class="media" th:each="c : ${commentDTO}">
+				
+				<div class="media questionList" th:each="c : ${commentDTO}">
 						<div class="media-left">
 							<a href="#"> <img class="media-object"
-								th:src="@{${q.user.avatarUrl}}" alt="...">
+								th:src="@{${c.creator.avatarUrl}}" alt="...">
 							</a>
 						</div>
 						<div class="media-body">
 							<h5 class="media-heading">
-								<a th:href="/" th:text=""></a>
+								<a th:href="@{/}" th:text="${c.creator.name}"></a>
 							</h5>
 							<p>
-							这是一条回复
+							[(${c.content})]
 							</p>
+						</div>
+						<div class="icon-ident">
+						<span class="glyphicon glyphicon-thumbs-up"   aria-hidden="true"></span>
+						<span class="glyphicon glyphicon-comment" aria-hidden="true" th:data-id="${c.id}"></span>
+						<span class="pull-right" th:text="${#dates.format(c.gmtCreated,'yyyy-MM-dd')}"></span>
+						</div>
+						<div class="collapse  sub-comment" th:id="${'comment-'+c.id}">
+						
 						</div>
 					</div>
 				
@@ -62,9 +68,13 @@
 				<hr>
 				<div>
 				
-				
+				<p th:if="${session.user==null}" class="text_center">
+						要回复问题请先<a
+							href="https://github.com/login/oauth/authorize?client_id=9393446dc7d775d12b5c&redirect_uri=http://localhost:8887/callback&state=1&scope=user">登录</a>
+				</p>
 				
 				<div th:if="${session.user!=null}">
+				<div >
 				<img alt="..." class="UserAvatarSize"
 						th:src="@{${question.user.avatarUrl}}">&nbsp;&nbsp;&nbsp;<a
 						href="#">[(${question.user.name})]</a>
@@ -74,7 +84,7 @@
 				<textarea class="form-control margin_top_bottom" rows="6" name="content" id="content"></textarea>
 				<p><button type="button" class="btn btn-success pull-right margin_top_bottom">发送评论</button></p>
 				</div>
-				
+				</div>
 				
 			</div>
 			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

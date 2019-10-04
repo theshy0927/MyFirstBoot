@@ -76,4 +76,24 @@ question css 样式
 .margin_top_bottom{
 	margin: 15px 0;
 }
-
+.questionList{
+	margin: 15px 0;
+    border-bottom: 1px solid #d8d0d0;
+    padding-bottom: 5px;
+}
+.icon-ident .glyphicon{
+	margin-right:30px;
+	color:gray;
+	cursor: pointer;
+}
+.icon-ident .iconhover{
+	color:skyblue;
+}
+.icon-ident .active{
+	color:skyblue;
+}
+.sub-comment{
+	margin: 10px 45px;
+    border: solid 1px #EEE;
+    padding: 20px;
+}
