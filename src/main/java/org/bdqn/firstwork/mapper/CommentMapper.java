@@ -9,8 +9,10 @@ public interface CommentMapper {
 
 	int addComment(Comment comment);
 
-	int updateCommentCount(@Param("count") Integer count,@Param("parentId") Integer parentId);
+	int updateQuestionCommentCount(@Param("count") Integer count,@Param("parentId") Integer parentId);
 
 	List<Comment> getCommentList(@Param("questionId")Integer questionId, @Param("type")Integer type);
+
+	int updateCommonetCommonCount(@Param("count")int i,@Param("parentId") Integer parentId);
 
 }

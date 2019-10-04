@@ -1,6 +1,8 @@
 package org.bdqn.firstwork.service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -109,6 +111,21 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		return comment;
 		
+	}
+
+	@Override
+	public List<Question> getSameQuestion(QuestionDTO question) {
+		//把 ， 替换成 | 进行sql正则表达式匹配
+		Question q = new Question();
+		q.setId(question.getId());
+		if(question.getTag()!=null&&!question.getTag().equals("")) {
+			String[] tags = question.getTag().split(",");
+			String regexTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+			q.setTag(regexTag);
+		}
+		System.out.println(q);
+		List<Question> questions = questionMapper.getSameQeustion(q);
+		return questions;
 	}
 	
 	

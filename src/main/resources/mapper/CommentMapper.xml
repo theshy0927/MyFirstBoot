@@ -8,11 +8,13 @@
 insert `comment`(content,like_count,gmt_created,gmt_modified,type,creatorId,parentId) values(#{content},#{likeCount},#{gmtCreated},#{gmtModified},#{type},#{creatorId},#{parentId});
 </insert>
 
-<update id="updateCommentCount">
+<update id="updateQuestionCommentCount">
 update question set  common_count=common_count+#{count}   where id = #{parentId}
 </update>
 
-
+<update id="updateCommonetCommonCount">
+update comment set  common_count=common_count+#{count}   where id = #{parentId}
+</update>
 
 <select id="getCommentList"  resultType="comment">
 select * from comment where parentId = #{questionId} and type = #{type}

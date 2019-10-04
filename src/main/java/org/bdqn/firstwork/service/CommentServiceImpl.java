@@ -18,7 +18,6 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public int addComment(Comment comment) {
-		System.out.println(comment);
 		if(comment.getParentId()==null||comment.getParentId()==0) {
 			throw new CustomizeException(ControllerError.comment_not_find);
 		}
@@ -29,7 +28,10 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			result = commentMapper.addComment(comment);
 			if(comment.getType()==CommentType.Question.getType()) {
-				commentMapper.updateCommentCount(1,comment.getParentId());
+				commentMapper.updateQuestionCommentCount(1,comment.getParentId());
+			}else {
+				//评论回复数更新
+				commentMapper.updateCommonetCommonCount(1,comment.getParentId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

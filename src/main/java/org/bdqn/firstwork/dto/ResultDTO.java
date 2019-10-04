@@ -4,6 +4,7 @@ import org.bdqn.firstwork.exception.CustomizeException;
 import org.bdqn.firstwork.utils.ControllerError;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 /**
  *封装接口的返回值
  * @author Administrator
@@ -61,7 +62,7 @@ public class ResultDTO {
 		ResultDTO resultDTO = new ResultDTO();
 		resultDTO.code =200;
 		resultDTO.message="请求成功";
-		resultDTO.jsonModel=JSON.toJSONString(model);
+		resultDTO.jsonModel=JSON.toJSONString(model,SerializerFeature.DisableCircularReferenceDetect);
 		return resultDTO;
 	}
 }

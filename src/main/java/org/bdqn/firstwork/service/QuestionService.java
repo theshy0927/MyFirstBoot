@@ -22,4 +22,6 @@ public interface QuestionService {
 
 	public List<CommentDTO> getCommonDTO(Integer questionId,CommentType type);
 
+	public List<Question> getSameQuestion(QuestionDTO tag);
+
 }

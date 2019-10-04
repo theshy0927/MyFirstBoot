@@ -64,6 +64,15 @@ update question set description = #{description} , title = #{title} , tag = #{ta
 
 <!-- 一对多映射  user-》question -->
 
-
+<select id="getSameQeustion" parameterType="question" resultType="question">
+SELECT id,tag,title FROM `question` where 
+<if test="tag!=null">
+ tag REGEXP #{tag} 
+</if>
+<if test='tag==null'>
+ tag=''
+</if>
+ and id!=#{id} ORDER BY  gmt_create desc LIMIT 5 ;
+</select>
 
 </mapper>

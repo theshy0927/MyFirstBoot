@@ -22,4 +22,6 @@ public interface QuestionMapper {
 	public int addViewCount(@Param("id")Integer id);
 	
 	public int updateQuestion(Question question);
+
+	public List<Question> getSameQeustion(Question q);
 }

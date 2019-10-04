@@ -9,6 +9,7 @@ import org.bdqn.firstwork.dto.CommentDTO;
 import org.bdqn.firstwork.dto.GithubUser;
 import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
+import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
@@ -127,4 +128,13 @@ public class MyFirstBootApplicationTests {
 		List<CommentDTO> commonDTO = questionService.getCommonDTO(1, CommentType.Question);
 		commonDTO.forEach(System.out::println);
 	}
+	@Test
+	public void d() {
+		QuestionDTO tag = new QuestionDTO();
+		tag.setTag("");
+		tag.setId(1);
+		List<Question> sameQuestion = questionService.getSameQuestion(tag);
+		sameQuestion.forEach(System.out::println);
+	}
+	
 }

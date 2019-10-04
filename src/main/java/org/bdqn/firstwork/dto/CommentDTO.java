@@ -16,6 +16,5 @@ public class CommentDTO {
 	private long gmtModified;
 	private User creator;
 	private Integer parentId;
-	
-	
+	private Integer commonCount;
 }

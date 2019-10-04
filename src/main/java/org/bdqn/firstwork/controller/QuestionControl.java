@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
@@ -73,6 +74,8 @@ public class QuestionControl {
 		QuestionDTO dto = questionService.getQuestionMeg(id,commited);
 		model.addAttribute("question", dto);
 		model.addAttribute("commentDTO",dto.getCommonCount()>0?questionService.getCommonDTO(dto.getId(),CommentType.Question):new ArrayList<>());
+		model.addAttribute("sameQuestion",questionService.getSameQuestion(dto));
+		
 		return "question";
 	}
 	

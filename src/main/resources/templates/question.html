@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Good Thymes Virtual Grocery</title>
+<title>久鸽</title>
 <base th:href="@{/}">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -11,6 +11,7 @@
 </script>
 <link rel="stylesheet" type="text/css" href="css/public.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/moment.js"></script>
 <script type="text/javascript" src="js/question.js"></script>
 </head>
 <body>
@@ -27,6 +28,12 @@
 						<small> 作者 [(${question.user.name})] | 发布于
 							[(${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')})] |
 							阅读数：[(${question.viewCount})]</small>
+					</p>
+					<p>
+					<span class="label label-info" th:if="${question.tag==''}">默认标签</span>
+					<span  th:if="${question.tag!=''}" th:each="tag : ${question.tag.split(',')}">
+					<span class="label label-info" th:text="${tag}"></span>
+					</span>
 					</p>
 					<hr>
 					<p>[(${question.description})]</p>
@@ -55,7 +62,7 @@
 						</div>
 						<div class="icon-ident">
 						<span class="glyphicon glyphicon-thumbs-up"   aria-hidden="true"></span>
-						<span class="glyphicon glyphicon-comment" aria-hidden="true" th:data-id="${c.id}"></span>
+						<span class="glyphicon glyphicon-comment" aria-hidden="true" th:data-id="${c.id}"></span><span style="margin-left:5px;font-size:17px " th:text="${c.commonCount==0?'':c.commonCount}"></span>
 						<span class="pull-right" th:text="${#dates.format(c.gmtCreated,'yyyy-MM-dd')}"></span>
 						</div>
 						<div class="collapse  sub-comment" th:id="${'comment-'+c.id}">
@@ -80,7 +87,6 @@
 						href="#">[(${question.user.name})]</a>
 				</div>
 				<input name="parentId" th:value="${question.id}" id="parentId" hidden="hidden"/>
-				<input name="type" th:value="2" id="type" hidden="hidden">
 				<textarea class="form-control margin_top_bottom" rows="6" name="content" id="content"></textarea>
 				<p><button type="button" class="btn btn-success pull-right margin_top_bottom">发送评论</button></p>
 				</div>
@@ -97,6 +103,23 @@
 						th:src="@{${question.user.avatarUrl}}">&nbsp;&nbsp;&nbsp;<a
 						href="#">[(${question.user.name})]</a>
 				</p>
+				
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px">
+				<hr>
+				<h4>鸽子王</h4>
+				<img width="100%" src="/img/鸽子王.jpg"/>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px">
+				<hr>
+				<h4>相关话题</h4>
+				<ul>
+				<li th:each="q : ${sameQuestion}">
+				<a th:href="@{${'/question/'+q.id}}" th:text="${q.title}"></a>
+				</li>
+				</ul>
+				</div>
 			</div>
 		</div>
 	</div>

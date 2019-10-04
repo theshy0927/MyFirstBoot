@@ -13,4 +13,5 @@ public class Comment {
 	private long gmtModified;
 	private Integer parentId;
 	private long creatorId;
+	private Integer commonCount;
 }

@@ -82,9 +82,11 @@ question css 样式
     padding-bottom: 5px;
 }
 .icon-ident .glyphicon{
-	margin-right:30px;
 	color:gray;
 	cursor: pointer;
+}
+.icon-ident .glyphicon-thumbs-up{
+	margin-right:30px;
 }
 .icon-ident .iconhover{
 	color:skyblue;
@@ -96,4 +98,10 @@ question css 样式
 	margin: 10px 45px;
     border: solid 1px #EEE;
     padding: 20px;
+}
+.sub-form p{
+	text-align: right;
+}
+.sub-form .btn{
+	margin: 10px  10px -20px 0;
 }
