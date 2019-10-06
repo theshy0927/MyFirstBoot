@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.utils.CommentType;
+import org.bdqn.firstwork.utils.TagCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,18 +26,24 @@ public class QuestionControl {
 	
 	@PostMapping("addQuestion")
 	public String addorUpdateQuestion(Question question,HttpServletRequest request,Model model) {
-		String returnUrl = question.getId()==0? "publish" :"forward:/goPublish?id="+question.getId();
+		String returnUrl = question.getId()==null? "publish" :"forward:/goPublish?id="+question.getId();
 		model.addAttribute("id", question.getId());
 		model.addAttribute("description", question.getDescription());
 		model.addAttribute("tag", question.getTag());
+		model.addAttribute("tags", TagCache.get());
 		if(question.getTitle()==null || question.getTitle().trim().equals("")) {
 			model.addAttribute("error", "标题不能为空");
 		}else if(question.getDescription()==null  || question.getDescription().trim().equals("")) {
 			model.addAttribute("title", question.getTitle());
 			model.addAttribute("error", "描述不能为空");
 		}else {
+			String errorTag = "";
+			if(!(errorTag=TagCache.errorTag(question.getTag())).equals("")) {
+				model.addAttribute("error", "错误标签"+errorTag);
+				return returnUrl;
+			}
 			//判断是更新还是新增
-			if(question.getId()==0) {
+			if(question.getId()==null) {
 			User user = (User) request.getSession().getAttribute("user");
 			question.setCreater(user.getId());
 			questionService.addQuestion(question);
@@ -63,7 +69,9 @@ public class QuestionControl {
 			model.addAttribute("description", dto.getDescription());
 			model.addAttribute("tag", dto.getTag());
 			model.addAttribute("title", dto.getTitle());
+			
 		}
+		model.addAttribute("tags", TagCache.get());
 		return "publish";
 	}
 	

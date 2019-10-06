@@ -9,7 +9,7 @@ href="css/bootstrap.min.css"  />
 <link rel="stylesheet" type="text/css" href="css/public.css">
 <script type="text/javascript" src="js/jquery-3.4.1.js"> </script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/public.js"></script>
+<script type="text/javascript" src="js/publish.js"></script>
 </head>
 <body>
 <span hidden="hidden" th:text="${error}" id="error"></span>
@@ -20,7 +20,7 @@ href="css/bootstrap.min.css"  />
   <div class="row">
 
 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-<h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span th:text="${id==0}?'发布':'修改'" >发布</span></h3>
+<h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span th:text="${id==null}?'发布':'修改'" >发布</span></h3>
 <hr>
 <form method="post" action="addQuestion" enctype="application/x-www-form-urlencoded">
 <input name="id"  th:value="${id}" hidden="hidden"/>
@@ -35,10 +35,27 @@ href="css/bootstrap.min.css"  />
   
   <div class="form-group">
     <label for="tag">添加标签:</label>
-    <input  class="form-control" id="tag" name="tag" th:value="${tag}" placeholder="输入标签,以，号隔开">
+    <input  class="form-control" id="tag" name="tag" th:value="${tag}" placeholder="输入标签,以，号隔开" autocomplete="off">
+ 	
+  <div class="collapse in publish-tags">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" th:class="${tagStatus.first}?'active':''" th:each="tag,tagStatus:${tags}"><a th:href="${'#'+tag.tagId}" th:aria-controls="${tag.tagId}" role="tab" data-toggle="tab">[(${tag.categoryName})]</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content publish-tags-content">
+    <div role="tabpanel"  th:class="${tagStatus.first}?'tab-pane active':'tab-pane'" th:id="${tag.tagId}" th:each="tag,tagStatus:${tags}">
+    <span th:each="t : ${tag.tags}" class="label label-info"  th:data-tag="${t}" onclick="selectTags(this)"><span class="glyphicon glyphicon-tag" style="margin-right: 3px" ></span>[(${t})]</span>
+    </div>
+    
+
+  </div>
+
+</div>
   </div>
   
-  <button type="submit" class="btn btn-success submit" th:text="${id==0}?'发布':'修改'">  </button>
+  <button type="submit" class="btn btn-success submit" th:text="${id==null}?'发布':'修改'">  </button>
   
 </form>
 </div>

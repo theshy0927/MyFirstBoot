@@ -12,13 +12,13 @@
 	and creater = #{creater}
 	</if>
 	</where>
-	
+	order by gmt_create desc
 	limit #{offset},#{size}
 </select>
 
 <!-- 新增一个新闻 -->
 <insert id="addQuestion" keyProperty="id" useGeneratedKeys="true">
-insert question(title,description,gmt_create,gmt_modified,tag,creater) values(#{title},#{description},#{gmtCreated},#{gmtModified},#{tag},#{creater});
+insert question(title,description,gmt_create,gmt_modified,tag,creater) values(#{title},#{description},#{gmtCreate},#{gmtModified},#{tag},#{creater});
 </insert>
 
 <!-- 查询文章发布者 -->

@@ -46,6 +46,7 @@ public class ControllerExceptionHandler {
 			model.addAttribute("message", ex.getMessage());
 		}else {
 			model.addAttribute("message", "服务器冒烟了，请你稍后再重试");
+			ex.printStackTrace();
 		}
 		}
 	return 	new ModelAndView("error");

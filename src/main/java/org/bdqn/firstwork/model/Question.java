@@ -11,7 +11,7 @@ public class Question implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	//select id,title,description,gmt_create,gmt_modified,view_count,common_count,like_count,tag,creater from question
-	private int id;
+	private Integer id;
 	private String title;
 	private String description;
 	private long gmtCreate = System.currentTimeMillis();

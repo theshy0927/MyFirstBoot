@@ -1,7 +1,9 @@
 package org.bdqn.firstwork.MyFirstBoot;
 
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -14,7 +16,6 @@ import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
 import org.bdqn.firstwork.utils.CommentType;
-import org.bdqn.firstwork.utils.ListNode;
 import org.bdqn.firstwork.utils.RedisUtils;
 import org.bdqn.firstwork.utils.TokenIntercept;
 import org.junit.Test;
@@ -63,13 +64,7 @@ public class MyFirstBootApplicationTests {
 		u.setName("杨国钦");
 		userService.addUser(u);
 	}
-	public ListNode swapPairs(ListNode head) {
-        if(head.next==null){
-            return head;
-        }
-        head = head.next;
-        return swapPairs(head);
-    }
+	
 	@Test
 	public void test2() {
 //		Configuration config = RedisAutoConfig.class.getAnnotation(Configuration.class);
@@ -136,5 +131,11 @@ public class MyFirstBootApplicationTests {
 		List<Question> sameQuestion = questionService.getSameQuestion(tag);
 		sameQuestion.forEach(System.out::println);
 	}
-	
+	@Test
+	public void e() {
+		String str ="git github visual-studio-code vim sublime-text xcode intellij-idea eclipse maven ide svn visual-studio atom emacs textmate hg";
+		String [] s=str.split(" ");
+		String collect = Arrays.stream(s).collect(Collectors.joining(","));
+		System.out.println(collect);
+	}
 }

@@ -59,8 +59,19 @@ body{
 	    margin-bottom: 15px;
 	float: right;
 }
-
-
+.publish-tags{
+	margin-top: 5px;
+}
+.publish-tags-content{
+	padding-left:4px;
+	line-height:35px;
+	border: 1px solid #eee;
+	border-top:none; 
+}
+.tab-pane .label-info{
+	margin:5px 10px;
+	cursor: pointer;
+}
 /*###################
 
 
