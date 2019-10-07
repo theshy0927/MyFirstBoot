@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.bdqn.firstwork.dto.QuestionDTO;
+import org.bdqn.firstwork.enums.CommentType;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
-import org.bdqn.firstwork.utils.CommentType;
-import org.bdqn.firstwork.utils.TagCache;
+import org.bdqn.firstwork.util.TagCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

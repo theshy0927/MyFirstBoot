@@ -1,4 +1,4 @@
-package org.bdqn.firstwork.utils;
+package org.bdqn.firstwork.util;
 
 import java.util.HashMap;
 import java.util.Map;

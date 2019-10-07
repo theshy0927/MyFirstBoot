@@ -9,15 +9,16 @@ import javax.annotation.Resource;
 
 import org.bdqn.firstwork.dto.CommentDTO;
 import org.bdqn.firstwork.dto.GithubUser;
+import org.bdqn.firstwork.dto.NotifyDTO;
 import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
+import org.bdqn.firstwork.enums.CommentType;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
-import org.bdqn.firstwork.utils.CommentType;
-import org.bdqn.firstwork.utils.RedisUtils;
-import org.bdqn.firstwork.utils.TokenIntercept;
+import org.bdqn.firstwork.util.RedisUtils;
+import org.bdqn.firstwork.util.TokenIntercept;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,5 +138,21 @@ public class MyFirstBootApplicationTests {
 		String [] s=str.split(" ");
 		String collect = Arrays.stream(s).collect(Collectors.joining(","));
 		System.out.println(collect);
+	}
+	@Test
+	public void f() {
+		String str ="git github visual-studio-code vim sublime-text xcode intellij-idea eclipse maven ide svn visual-studio atom emacs textmate hg";
+		String [] s=str.split(" ");
+		String collect = Arrays.stream(s).collect(Collectors.joining(","));
+		System.out.println(collect);
+	}
+	
+	
+
+	@Test
+	public void g() {
+		PaginationDTO<NotifyDTO> repliesList = questionService.repliesList(1, 2, 6);
+		
+		System.out.println(repliesList.getData().get(0).getQuestion());
 	}
 }

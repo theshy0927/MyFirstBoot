@@ -3,8 +3,7 @@ package org.bdqn.firstwork.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-
-import org.bdqn.firstwork.utils.UserFilter;
+import org.bdqn.firstwork.util.UserFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

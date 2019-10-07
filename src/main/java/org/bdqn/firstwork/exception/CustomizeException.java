@@ -1,6 +1,6 @@
 package org.bdqn.firstwork.exception;
 
-import org.bdqn.firstwork.utils.ControllerError;
+import org.bdqn.firstwork.enums.ControllerError;
 
 public class CustomizeException extends RuntimeException{
 

@@ -16,6 +16,18 @@
 	limit #{offset},#{size}
 </select>
 
+<!-- 分页获取回复列表 -->
+<select id="repliseList"   resultType="notify">
+	select *  from notify
+	<where>
+	<if test="receiver!=null and receiver!=0">
+	and receiver = #{receiver}
+	</if>
+	</where>
+	order by gmt_create desc
+	limit #{offset},#{size}
+</select>
+
 <!-- 新增一个新闻 -->
 <insert id="addQuestion" keyProperty="id" useGeneratedKeys="true">
 insert question(title,description,gmt_create,gmt_modified,tag,creater) values(#{title},#{description},#{gmtCreate},#{gmtModified},#{tag},#{creater});
@@ -25,6 +37,19 @@ insert question(title,description,gmt_create,gmt_modified,tag,creater) values(#{
 <select id="getUserByCreateId" parameterType="long" resultType="user">
 select * from user where id = #{id}
 </select>
+
+
+
+<!-- 页面总数据 -->
+<select id="getTotalNotifyCount" resultType="int">
+select count(1) from notify
+	<where>
+	<if test="receiver!=null and receiver!=0">
+	and receiver = #{receiver}
+	</if>
+	</where>
+</select>
+
 
 <!-- 页面总数据 -->
 <select id="getTotalCount" resultType="int">
@@ -73,6 +98,24 @@ SELECT id,tag,title FROM `question` where
  tag=''
 </if>
  and id!=#{id} ORDER BY  gmt_create desc LIMIT 5 ;
+</select>
+
+<select id="getHotQuestion"  resultType="question">
+select id,tag,title from `question` where DATEDIFF(SYSDATE(),FROM_UNIXTIME(gmt_create/1000))&lt;7  order by view_count desc limit 5;
+</select>
+
+<select id="getUnReadCount"  resultType="int">
+select count(1) from notify  where `read` = 0 and receiver = #{id}
+</select>
+
+<select id="getQuestionById" parameterType="integer" resultType="question">
+select * from question 
+<foreach collection="list" open="where id in(" separator="," item="i" close=")">
+	#{i}
+</foreach>
+</select>
+<select id="getQuestionById2" resultType="question" parameterType="int">
+select * from question where id = #{id}
 </select>
 
 </mapper>

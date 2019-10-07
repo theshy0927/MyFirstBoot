@@ -21,7 +21,15 @@ href="/css/bootstrap.min.css"  />
 
 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
 <hr>
-<div class="media" th:each="q : ${questionList.data}">
+<div th:if="${questionList.type=='replies'}">
+<div class="media" th:each="r : ${questionList.data}">
+  <div class="media-body">
+	<p><a href="/" th:text="${r.notifier.name}"></a>[(${r.isQuestionNotify})]<a th:href="'/question/'+${r.question.id}" th:text="${r.question.title}"></a></p>
+  </div>
+</div>
+</div>
+<div th:if="${questionList.type=='questions'}">
+<div class="media"  th:each="q : ${questionList.data}">
   <div class="media-left">
     <a href="#">
       <img class="media-object" th:src="@{${q.user.avatarUrl}}" alt="...">
@@ -29,9 +37,12 @@ href="/css/bootstrap.min.css"  />
   </div>
   <div class="media-body">
     <h5 class="media-heading"><a th:href="@{'question/'+${q.id}}" th:text="${q.title}"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/goPublish(id=${q.id})}">编辑    <span class="glyphicon glyphicon-edit"></span></a></h5>
-    <p>Elasticsearch • <span th:text="${q.user.name}"></span> 发起了问题 • <span th:text="${q.likeCount}"></span> 人关注 • <span th:text="${q.commonCount}"></span> 个回复 • <span th:text="${q.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(q.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span></p>
+    <p><span class="label label-info"
+								th:text="${q.tag==''?'默认标签':q.tag.split(',')[0]}"></span> <span th:text="${q.user.name}"></span> 发起了问题 • <span th:text="${q.likeCount}"></span> 人关注 • <span th:text="${q.commonCount}"></span> 个回复 • <span th:text="${q.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(q.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span></p>
   </div>
 </div>
+</div>
+
 <nav aria-label="..." class="float-right paginationNav" >
   <ul class="pagination">
     <li th:if="${questionList.hasFirstPage}"><a th:href="@{${questionList.url}(curPage=${1})}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>

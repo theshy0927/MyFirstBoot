@@ -1,12 +1,15 @@
-package org.bdqn.firstwork.utils;
+package org.bdqn.firstwork.util;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
+import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 
@@ -15,7 +18,8 @@ public class TokenIntercept implements HandlerInterceptor{
 	
 	@Resource
 	private UserService userService;
-	
+	@Autowired
+	private QuestionService questionService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -28,6 +32,7 @@ public class TokenIntercept implements HandlerInterceptor{
 				if(cookie.getName().equals("token")) {
 					User user = userService.getUserByToken(cookie.getValue());
 					request.getSession().setAttribute("user", user);
+					request.getSession().setAttribute("unReadCount", questionService.getUnReadCount(user.getId()));
 					bool = false;
 					break;
 				}

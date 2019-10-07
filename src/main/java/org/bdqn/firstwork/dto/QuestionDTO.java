@@ -13,7 +13,7 @@ public class QuestionDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private String title;
 	private String description;
 	private long gmtCreate = System.currentTimeMillis();

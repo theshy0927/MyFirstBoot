@@ -1,4 +1,4 @@
-package org.bdqn.firstwork.utils;
+package org.bdqn.firstwork.enums;
 
 public interface IControllerError {
 

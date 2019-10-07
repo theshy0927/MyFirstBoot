@@ -2,6 +2,7 @@ package org.bdqn.firstwork.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.bdqn.firstwork.dto.NotifyDTO;
 import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
 import org.bdqn.firstwork.service.QuestionService;
@@ -24,10 +25,26 @@ public class ProfileControl {
 			HttpServletRequest request,
 			@PathVariable("id") Integer id,Model model,
 			@RequestParam(defaultValue = "1",required = false) Integer curPage,
-			@RequestParam(defaultValue = "2",required = false) Integer size) {
+			@RequestParam(defaultValue = "8",required = false) Integer size) {
 		PaginationDTO<QuestionDTO> questionList = questionService.questionList(curPage, size, id);
-		questionList.setUrl("/profile/questions/"+id);
+		questionList.setUrl("/user/profile/questions/"+id);
+		questionList.setType("questions");
 		model.addAttribute("questionList", questionList);
 		return "/profile";
 	}
+	
+	@RequestMapping("/replies/{id}")
+	public String replies(
+			HttpServletRequest request,
+			@PathVariable("id") Integer id,Model model,
+			@RequestParam(defaultValue = "1",required = false) Integer curPage,
+			@RequestParam(defaultValue = "8",required = false) Integer size) {
+		PaginationDTO<NotifyDTO> repliesList = questionService.repliesList(curPage, size, id);
+		repliesList.setUrl("/user/profile/replies/"+id);
+		repliesList.setType("replies");
+		model.addAttribute("questionList", repliesList);
+		
+		return "/profile";
+	}
+	
 }

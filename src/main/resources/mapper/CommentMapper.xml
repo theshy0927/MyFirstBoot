@@ -19,4 +19,9 @@ update comment set  common_count=common_count+#{count}   where id = #{parentId}
 <select id="getCommentList"  resultType="comment">
 select * from comment where parentId = #{questionId} and type = #{type}
 </select>
+
+<insert id="addNotified" keyProperty="id" parameterType="notify">
+insert `notify`(outerId,notifier,receiver,is_question_notify,gmt_create) values(#{outerId},#{notifier},#{receiver},#{isQuestionNotify},#{gmtCreate});
+</insert>
+
 </mapper>

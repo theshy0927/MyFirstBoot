@@ -20,7 +20,7 @@ public class PaginationDTO<T> {
 	private Integer size;
 	private List<Integer> pages = new ArrayList<Integer>();;
 	private String url;
-	
+	private String type;
 	
 	//param(当前页，页长度，总数据) 当前页 并计算页数
 	public void oprData(Integer curPage,Integer size,Integer totalCount) {

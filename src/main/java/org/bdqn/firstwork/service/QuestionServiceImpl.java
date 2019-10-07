@@ -10,17 +10,20 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.bdqn.firstwork.dto.CommentDTO;
+import org.bdqn.firstwork.dto.NotifyDTO;
 import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
+import org.bdqn.firstwork.enums.CommentType;
+import org.bdqn.firstwork.enums.ControllerError;
+import org.bdqn.firstwork.enums.NotifyType;
 import org.bdqn.firstwork.exception.CustomizeException;
 import org.bdqn.firstwork.mapper.CommentMapper;
 import org.bdqn.firstwork.mapper.QuestionMapper;
 import org.bdqn.firstwork.mapper.UserMapper;
 import org.bdqn.firstwork.model.Comment;
+import org.bdqn.firstwork.model.Notify;
 import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
-import org.bdqn.firstwork.utils.CommentType;
-import org.bdqn.firstwork.utils.ControllerError;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,9 +126,71 @@ public class QuestionServiceImpl implements QuestionService {
 			String regexTag = Arrays.stream(tags).collect(Collectors.joining("|"));
 			q.setTag(regexTag);
 		}
-		System.out.println(q);
 		List<Question> questions = questionMapper.getSameQeustion(q);
 		return questions;
+	}
+
+	@Override
+	public List<Question> getHotQuestion() {
+		List<Question> arrayList = new ArrayList<Question>();
+		arrayList = questionMapper.getHotQuestion();
+		return arrayList;
+	}
+
+	@Override
+	public Integer getUnReadCount(Long id) {
+		return questionMapper.getUnReadCount(id);
+	}
+
+	@Override
+	public PaginationDTO<NotifyDTO> repliesList(Integer curPage, Integer size, Integer id) {
+		PaginationDTO<NotifyDTO> dto = new PaginationDTO<NotifyDTO>();
+		Integer totalCount = questionMapper.getTotalNotifyCount(id);
+		dto.oprData(curPage, size, totalCount);
+		Integer offset = (dto.getCurPage()-1)*size;
+		 List<Notify> notifyList = questionMapper.repliseList(offset,size,id);
+		 List<NotifyDTO> notifyDTOs =null;
+		 
+		 Set<Long> collect = notifyList.stream().map(n->n.getNotifier()).collect(Collectors.toSet());
+		 List<Long> userId = new ArrayList<Long>(collect);
+		
+		 Set<Integer> commentCollect = notifyList.stream().filter(n->n.getIsQuestionNotify()==CommentType.Comment.getType()).map(n->n.getOuterId()).collect(Collectors.toSet());
+		 List<Integer> commentId = new ArrayList<Integer>(commentCollect);
+		 Set<Integer> questionCollect = notifyList.stream().filter(n->n.getIsQuestionNotify()!=CommentType.Comment.getType()).map(n->n.getOuterId()).collect(Collectors.toSet());
+		 List<Integer> questionId = new ArrayList<Integer>(questionCollect);
+		
+		 
+		 System.out.println("commentId"+commentId);
+		 System.out.println("questionId"+questionId);
+		
+		 Map<Integer, Question> commonMap = commentId.stream().collect(Collectors.toMap(c->c,c->{
+			 return questionMapper.getQuestionById2(id);
+		 }));
+		 Map<Long, User> userMap = userMapper.getUserByCreatorId(userId).stream().collect(Collectors.toMap(u->u.getId(),u->u ));
+		Map<Integer, Question> questionMap = questionMapper.getQuestionById(questionId).stream().collect(Collectors.toMap(q->q.getId(), q->q));
+		//QuestionMap.putAll(CommonMap);
+		 
+		if(notifyList!=null) {
+			 notifyDTOs  =new ArrayList<NotifyDTO>();
+			 for (Notify n : notifyList) {
+				 NotifyDTO qdto =new NotifyDTO();
+				 BeanUtils.copyProperties(n, qdto);
+				 qdto.setNotifier(userMap.get(n.getNotifier()));
+				 if(n.getIsQuestionNotify()==CommentType.Question.getType()) {
+					 qdto.setQuestion(questionMap.get(n.getOuterId()));
+					 qdto.setIsQuestionNotify(NotifyType.question_notify.getDesc());
+				 }else {
+					 qdto.setQuestion(commonMap.get(n.getOuterId()));
+					 qdto.setIsQuestionNotify(NotifyType.common_notify.getDesc());
+				 }
+				 
+				 notifyDTOs.add(qdto);
+			}
+			 dto.setData(notifyDTOs);
+		 }
+		return dto;
+		
+		
 	}
 	
 	

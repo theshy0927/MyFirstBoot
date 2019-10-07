@@ -1,4 +1,4 @@
-package org.bdqn.firstwork.utils;
+package org.bdqn.firstwork.util;
 
 import java.util.Collection;
 import java.util.List;

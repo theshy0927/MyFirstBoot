@@ -1,4 +1,4 @@
-package org.bdqn.firstwork.utils;
+package org.bdqn.firstwork.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

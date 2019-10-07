@@ -1,7 +1,7 @@
 package org.bdqn.firstwork.dto;
 
+import org.bdqn.firstwork.enums.ControllerError;
 import org.bdqn.firstwork.exception.CustomizeException;
-import org.bdqn.firstwork.utils.ControllerError;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

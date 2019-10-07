@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.bdqn.firstwork.dto.ResultDTO;
+import org.bdqn.firstwork.enums.ControllerError;
 import org.bdqn.firstwork.exception.CustomizeException;
-import org.bdqn.firstwork.utils.ControllerError;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

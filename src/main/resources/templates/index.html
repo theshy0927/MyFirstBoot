@@ -2,56 +2,86 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>久鸽</title>
-<base th:href="@{/}" >
+<base th:href="@{/}">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
-href="css/bootstrap.min.css"  />
-<script type="text/javascript" src="js/jquery-3.4.1.js"> </script>
+	href="css/bootstrap.min.css" />
+<script type="text/javascript" src="js/jquery-3.4.1.js">
+	
+</script>
 <link rel="stylesheet" type="text/css" href="css/public.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/public.js"></script>
 </head>
 <body>
-<span hidden="hidden" th:text="${error}" id="error"></span>
+	<span hidden="hidden" th:text="${error}" id="error"></span>
 
-<div th:insert="header :: nav"></div>
+	<div th:insert="header :: nav"></div>
 
-<div class="container-fluid" id="main">
-  <div class="row">
+	<div class="container-fluid" id="main">
+		<div class="row">
 
-<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-<h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布</h3>
-<hr>
-<div class="media" th:each="q : ${questionList.data}">
-  <div class="media-left">
-    <a href="#">
-      <img class="media-object" th:src="@{${q.user.avatarUrl}}" alt="...">
-    </a>
-  </div>
-  <div class="media-body">
-    <h5 class="media-heading"><a th:href="@{'question/'+${q.id}}" th:text="${q.title}"></a></h5>
-    <p><span class="label label-info" th:text="${q.tag==''?'默认标签':q.tag.split(',')[0]}"></span> • <span th:text="${q.user.name}"></span> 发起了问题 • <span th:text="${q.likeCount}"></span> 人关注 • <span th:text="${q.commonCount}"></span> 个回复 • <span th:text="${q.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(q.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span></p>
-  </div>
-</div>
-<nav aria-label="..." class="float-right paginationNav" >
-  <ul class="pagination">
-    <li th:if="${questionList.hasFirstPage}"><a th:href="@{${questionList.url}(curPage=${1})}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-     <li th:if="${questionList.hasPreious}"><a th:href="@{${questionList.url}(curPage=${questionList.curPage-1})}" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
-    <li th:class="${questionList.curPage==p}?'active':''"   th:each="p : ${questionList.pages}">
-    <a th:href="@{${questionList.url}(curPage=${p})}" th:remove="${questionList.curPage==p}?all:none">[(${p})] </a>
-    <span th:remove="${questionList.curPage!=p}?all:none">[(${p})] </span></li>
-    
-     <li th:if="${questionList.hasNext}"><a th:href="@{${questionList.url}(curPage=${questionList.curPage+1})}" aria-label="Previous"><span aria-hidden="true">&rsaquo;</span></a></li>
-    <li th:if="${questionList.hasLastPage}"><a th:href="@{${questionList.url}(curPage=${questionList.totalPage})}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-</nav>
-<hr>
-</div>
-<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-<br>
-<h4>热门话题</h4>
-</div>
-</div>
-</div>
+			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+				<h3>
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发布
+				</h3>
+				<hr>
+				<div class="media" th:each="q : ${questionList.data}">
+					<div class="media-left">
+						<a href="#"> <img class="media-object"
+							th:src="@{${q.user.avatarUrl}}" alt="...">
+						</a>
+					</div>
+					<div class="media-body">
+						<h5 class="media-heading">
+							<a th:href="@{'question/'+${q.id}}" th:text="${q.title}"></a>
+						</h5>
+						<p>
+							<span class="label label-info"
+								th:text="${q.tag==''?'默认标签':q.tag.split(',')[0]}"></span> • <span
+								th:text="${q.user.name}"></span> 发起了问题 • <span
+								th:text="${q.likeCount}"></span> 人关注 • <span
+								th:text="${q.commonCount}"></span> 个回复 • <span
+								th:text="${q.viewCount}"></span> 次浏览 • <span
+								th:text="${#dates.format(q.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+						</p>
+					</div>
+				</div>
+				<nav aria-label="..." class="float-right paginationNav">
+					<ul class="pagination">
+						<li th:if="${questionList.hasFirstPage}"><a
+							th:href="@{${questionList.url}(curPage=${1})}"
+							aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+						<li th:if="${questionList.hasPreious}"><a
+							th:href="@{${questionList.url}(curPage=${questionList.curPage-1})}"
+							aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+						<li th:class="${questionList.curPage==p}?'active':''"
+							th:each="p : ${questionList.pages}"><a
+							th:href="@{${questionList.url}(curPage=${p})}"
+							th:remove="${questionList.curPage==p}?all:none">[(${p})] </a> <span
+							th:remove="${questionList.curPage!=p}?all:none">[(${p})] </span></li>
+
+						<li th:if="${questionList.hasNext}"><a
+							th:href="@{${questionList.url}(curPage=${questionList.curPage+1})}"
+							aria-label="Previous"><span aria-hidden="true">&rsaquo;</span></a></li>
+						<li th:if="${questionList.hasLastPage}"><a
+							th:href="@{${questionList.url}(curPage=${questionList.totalPage})}"
+							aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+					</ul>
+				</nav>
+				<hr>
+			</div>
+			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+				<br>
+				<h4>热门话题</h4>
+				<div>
+					<ul>
+						<li th:each="q : ${hotQuestion}"><a
+							th:href="@{${'/question/'+q.id}}" th:text="${q.title}"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package org.bdqn.firstwork.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -12,11 +14,12 @@ import org.bdqn.firstwork.dto.AccessTokenDTO;
 import org.bdqn.firstwork.dto.GithubUser;
 import org.bdqn.firstwork.dto.PaginationDTO;
 import org.bdqn.firstwork.dto.QuestionDTO;
+import org.bdqn.firstwork.model.Question;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.QuestionService;
 import org.bdqn.firstwork.service.UserService;
-import org.bdqn.firstwork.utils.GitHubProvider;
-import org.bdqn.firstwork.utils.RedisUtils;
+import org.bdqn.firstwork.util.GitHubProvider;
+import org.bdqn.firstwork.util.RedisUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,13 +64,15 @@ public class SpringControl {
 					if(cookie.getName().equals("token")) {
 						User user = userService.getUserByToken(cookie.getValue());
 						request.getSession().setAttribute("user", user);
+						request.getSession().setAttribute("unReadCount", questionService.getUnReadCount(user.getId()));
 						break;
 					}
 				}
 			}
 		}
-		//request.setAttribute("b", "我太难了");
+		request.setAttribute("hotQuestion", hotQuestion());
 		return "index";
+		
 		//return "redirect:/index.html";	
 	}
 	
@@ -110,8 +115,6 @@ public class SpringControl {
 	@GetMapping(value = "/unLogin")
 	public String unLogin(Model model) {
 		model.addAttribute("error","请登录后在进行该操作");
-		
-		
 		return "forward:/";
 	}
 	
@@ -132,5 +135,11 @@ public class SpringControl {
 		}
 		request.setAttribute("callBack", "退出成功");
 		return "forward:/";
+	}
+	
+	public List<Question> hotQuestion(){
+		List<Question> arrayList = new ArrayList<Question>();
+		arrayList = questionService.getHotQuestion();
+		return arrayList;
 	}
 }

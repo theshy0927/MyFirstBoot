@@ -1,7 +1,7 @@
 package org.bdqn.firstwork.config;
 
 
-import org.bdqn.firstwork.utils.TokenIntercept;
+import org.bdqn.firstwork.util.TokenIntercept;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;

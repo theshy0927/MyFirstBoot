@@ -4,6 +4,6 @@ import org.bdqn.firstwork.model.Comment;
 
 public interface CommentService {
 
-	public int addComment(Comment comment);
+	public void addComment(Comment comment,long notifier);
 	
 }

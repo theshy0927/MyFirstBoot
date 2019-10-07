@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.bdqn.firstwork.dto.CommentDTO;
 import org.bdqn.firstwork.dto.ResultDTO;
+import org.bdqn.firstwork.enums.CommentType;
+import org.bdqn.firstwork.enums.ControllerError;
 import org.bdqn.firstwork.model.Comment;
 import org.bdqn.firstwork.model.User;
 import org.bdqn.firstwork.service.CommentService;
 import org.bdqn.firstwork.service.QuestionService;
-import org.bdqn.firstwork.utils.CommentType;
-import org.bdqn.firstwork.utils.ControllerError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,11 +33,13 @@ public class CommentController {
 		if(attribute==null) {
 			return ResultDTO.errorOf(ControllerError.no_login);
 		}
-		comment.setCreatorId(attribute.getId());
+		long creator = attribute.getId();
+		comment.setCreatorId(creator);
 		comment.setGmtCreated(System.currentTimeMillis());
 		comment.setGmtModified(System.currentTimeMillis());
 		comment.setLikeCount(1);
-		commentService.addComment(comment);
+		commentService.addComment(comment,creator);
+		request.getSession().setAttribute("unReadCount", questionService.getUnReadCount(creator));
 		return ResultDTO.okOf(comment);
 	}
 	
